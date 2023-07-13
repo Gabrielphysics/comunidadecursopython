@@ -34,7 +34,7 @@ def login():
         usuario = Usuario.query.filter_by(email=form_login.email.data).first()
         senha_cript = usuario.senha
         if usuario and bcrypt.check_password_hash(senha_cript, form_login.senha.data):
-            login_user(usuario, remember=form_login.lembrar_dados.data).decode('utf-8')
+            login_user(usuario, remember=form_login.lembrar_dados.data)
             flash(f'login feito com sucesso no e-mail: {form_login.email.data}', 'alert-success' )
             next = request.args.get('next')
             if next:
@@ -45,7 +45,7 @@ def login():
             
             
     if form_criarconta.validate_on_submit() and 'botao_submit_criarconta' in request.form:
-        senha_cript = bcrypt.generate_password_hash(form_criarconta.senha.data)
+        senha_cript = bcrypt.generate_password_hash(form_criarconta.senha.data).decode('utf-8')
         usuario = Usuario(
             username = form_criarconta.username.data,
             email = form_criarconta.email.data, 
