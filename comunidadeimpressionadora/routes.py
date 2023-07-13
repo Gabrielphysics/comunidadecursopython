@@ -34,7 +34,7 @@ def login():
         usuario = Usuario.query.filter_by(email=form_login.email.data).first()
         senha_cript = usuario.senha
         if usuario and bcrypt.check_password_hash(senha_cript, form_login.senha.data):
-            login_user(usuario, remember=form_login.lembrar_dados.data)
+            login_user(usuario, remember=form_login.lembrar_dados.data).decode('utf-8')
             flash(f'login feito com sucesso no e-mail: {form_login.email.data}', 'alert-success' )
             next = request.args.get('next')
             if next:
